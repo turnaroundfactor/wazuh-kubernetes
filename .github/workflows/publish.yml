@@ -1,10 +1,8 @@
 name: Deploy to GKE
-
 on:
   push:
     branches:
       - develop
-
 jobs:
   set_env:
     outputs:
@@ -19,6 +17,7 @@ jobs:
             echo "current_env=develop" >> $GITHUB_OUTPUT
           fi
   deploy:
+    needs: set_env
     runs-on: ubuntu-latest
     env:
       PROJECT_ID: ${{ vars.PROJECT_ID }}
