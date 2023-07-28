@@ -40,12 +40,12 @@ jobs:
       uses: 'google-github-actions/setup-gcloud@v1'
       with:
         version: '>= 363.0.0'
-        project_id: $PROJECT_ID
+        project_id: ${{ vars.PROJECT_ID }}
     - name: Configure kubectl
       run: |
-        gcloud config set project $PROJECT_ID
-        gcloud config set compute/zone $ZONE
-        gcloud container clusters get-credentials $CLUSTER_NAME --region=$ZONE
+        gcloud config set project ${{ vars.PROJECT_ID }}
+        gcloud config set compute/zone us-east4
+        gcloud container clusters get-credentials ${{ vars.CLUSTER_NAME }} --region=us-east4
 
     # - name: Apply deployment
     #   run: |
