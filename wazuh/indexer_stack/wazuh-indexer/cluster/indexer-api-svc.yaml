@@ -14,6 +14,8 @@ metadata:
   namespace: wazuh
   labels:
     app: wazuh-indexer
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
   type: LoadBalancer
   selector:

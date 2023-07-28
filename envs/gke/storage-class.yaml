@@ -11,9 +11,8 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: wazuh-storage
-provisioner: kubernetes.io/aws-ebs
+  namespace: wazuh
+provisioner: kubernetes.io/gce-pd
 parameters:
-  encrypted: 'true'
-  type: gp2
-volumeBindingMode: WaitForFirstConsumer
+  type: pd-standard
 reclaimPolicy: Retain  # Useful in case you delete the PersistentVolumeClaim

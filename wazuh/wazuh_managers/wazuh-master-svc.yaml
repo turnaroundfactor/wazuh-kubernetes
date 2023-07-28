@@ -14,10 +14,8 @@ metadata:
   namespace: wazuh
   labels:
     app: wazuh-manager
-    # dns: route53
   annotations:
-    # domainName: 'changeme'
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
   type: LoadBalancer
   selector:
