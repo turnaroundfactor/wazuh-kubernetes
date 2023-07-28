@@ -49,8 +49,19 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}
     - name: Apply Dashboard Secret
       run: |
+        kubectl delete secret dashboard-cred --ignore-not-found -n wazuh
         kubectl create secret generic dashboard-cred --from-literal=username=${{ secrets.DASHBOARD_USERNAME }} --from-literal=password=${{ secrets.DASHBOARD_PASSWORD }} -n wazuh
+
+        kubectl delete secret indexer-cred --ignore-not-found -n wazuh
         kubectl create secret generic indexer-cred --from-literal=username=${{ secrets.INDEXER_USERNAME }} --from-literal=password=${{ secrets.INDEXER_PASSWORD }} -n wazuh
+        
+        kubectl delete secret wazuh-api-cred --ignore-not-found -n wazuh
         kubectl create secret generic wazuh-api-cred --from-literal=username=${{ secrets.API_USERNAME }} --from-literal=password=${{ secrets.API_PASSWORD }} -n wazuh
+        
+        kubectl delete secret generic wazuh-authd-pass --ignore-not-found -n wazuh
         kubectl create secret generic wazuh-authd-pass --from-literal=authd.pass=${{ secrets.AUTH_D_PASSWORD }} -n wazuh
+        
+        kubectl delete secret wazuh-cluster-key --ignore-not-found -n wazuh
         kubectl create secret generic wazuh-cluster-key --from-literal=key${{ secrets.CLUSTER_KEY }} -n wazuh
+
+        kubectl apply -k envs/gke
