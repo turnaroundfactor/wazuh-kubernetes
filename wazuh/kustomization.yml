@@ -46,7 +46,6 @@ resources:
   - base/wazuh-ns.yaml
   - base/storage-class.yaml
 
-
   - wazuh_managers/wazuh-cluster-svc.yaml
   - wazuh_managers/wazuh-master-svc.yaml
   - wazuh_managers/wazuh-workers-svc.yaml
