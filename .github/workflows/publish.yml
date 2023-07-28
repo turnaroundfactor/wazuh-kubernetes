@@ -47,8 +47,6 @@ jobs:
         cluster_name: ${{ vars.CLUSTER_NAME }}
         location: us-east4
         project_id: ${{ vars.PROJECT_ID }}
-
-
-    # - name: Apply deployment
-    #   run: |
-    #     kubectl apply -k envs/gke
+    - name: Apply deployment
+      run: |
+        kubectl get services -o wide -n wazuh
