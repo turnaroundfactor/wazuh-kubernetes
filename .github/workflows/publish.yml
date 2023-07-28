@@ -12,7 +12,7 @@ env:
   ZONE: us-east4
 
 jobs:
-set_env:
+  set_env:
     outputs:
       current_env: ${{ steps.setenv.outputs.current_env }}
     runs-on: ubuntu-latest
