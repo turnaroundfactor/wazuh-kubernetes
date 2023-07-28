@@ -1,0 +1,41 @@
+name: Deploy to GKE
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  PROJECT_ID: ${{ vars.PROJECT_ID }}
+  CLUSTER_NAME: ${{ vars.CLUSTER_NAME }}
+  ZONE: us-east4
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        workload_identity_provider: ${{ vars.IDENTITY_PROVIDER }} 
+        service_account: ${{ vars.SERVICE_ACCOUNT }} 
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        version: '>= 363.0.0'
+        project_id: $PROJECT_ID
+
+    - name: Configure kubectl
+      run: |
+        gcloud config set project $PROJECT_ID
+        gcloud config set compute/zone $ZONE
+        gcloud container clusters get-credentials $CLUSTER_NAME --region=$ZONE
+
+    # - name: Apply deployment
+    #   run: |
+    #     kubectl apply -k envs/gke
