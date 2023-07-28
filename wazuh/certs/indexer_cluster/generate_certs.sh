@@ -21,7 +21,7 @@ openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v
 
 echo "create: admin.csr"
 
-openssl req -days 3650 -new -key admin-key.pem -out admin.csr -subj "/C=US/L=California/O=Company/CN=admin"
+openssl req -days 3650 -x509 -new -key admin-key.pem -out admin.csr -subj "/C=US/L=California/O=Company/CN=admin"
 
 echo "create: admin.pem"
 
@@ -40,7 +40,7 @@ openssl pkcs8 -inform PEM -outform PEM -in node-key-temp.pem -topk8 -nocrypt -v1
 
 echo "create: node.csr"
 
-openssl req -days 3650 -new -key node-key.pem -out node.csr -subj "/C=US/L=California/O=Company/CN=*.wazuh-indexer"
+openssl req -days 3650 -x509 -new -key node-key.pem -out node.csr -subj "/C=US/L=California/O=Company/CN=*.wazuh-indexer"
 
 echo "create: node.pem"
 
@@ -58,11 +58,11 @@ openssl pkcs8 -inform PEM -outform PEM -in dashboard-key-temp.pem -topk8 -nocryp
 
 echo "create: dashboard.csr"
 
-openssl req -days 3650 -new -key dashboard-key.pem -out dashboard.csr -subj "/C=US/L=California/O=Company/CN=dashboard"
+openssl req -days 3650 -x509 -new -key dashboard-key.pem -out dashboard.csr -subj "/C=US/L=California/O=Company/CN=dashboard"
 
 echo "create: dashboard.pem"
 
-openssl x509 -req -days 3650 -in dashboard.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out dashboard.pem
+openssl x509 -req -days -x509 3650 -in dashboard.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out dashboard.pem
 
 
 
@@ -78,8 +78,8 @@ openssl pkcs8 -inform PEM -outform PEM -in filebeat-key-temp.pem -topk8 -nocrypt
 
 echo "create: filebeat.csr"
 
-openssl req -days 3650 -new -key filebeat-key.pem -out filebeat.csr -subj "/C=US/L=California/O=Company/CN=filebeat"
+openssl req -days 3650 -x509 -new -key filebeat-key.pem -out filebeat.csr -subj "/C=US/L=California/O=Company/CN=filebeat"
 
 echo "create: filebeat.pem"
 
-openssl x509 -req -days 3650 -in filebeat.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out filebeat.pem
+openssl x509 -req -days -x509 3650 -in filebeat.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out filebeat.pem
