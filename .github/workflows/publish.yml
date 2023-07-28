@@ -5,15 +5,29 @@ on:
     branches:
       - develop
 
+
 env:
   PROJECT_ID: ${{ vars.PROJECT_ID }}
   CLUSTER_NAME: ${{ vars.CLUSTER_NAME }}
   ZONE: us-east4
 
 jobs:
+set_env:
+    outputs:
+      current_env: ${{ steps.setenv.outputs.current_env }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: setenv
+        run: |
+          if [[ "${{github.ref}}" == "refs/heads/main" ]]; then
+            echo "current_env=production" >> $GITHUB_OUTPUT
+          else
+            echo "current_env=develop" >> $GITHUB_OUTPUT
+          fi
   deploy:
     runs-on: ubuntu-latest
-
+    environment: 
+      name: ${{ needs.set_env.outputs.current_env }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
