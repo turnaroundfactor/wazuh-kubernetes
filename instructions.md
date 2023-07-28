@@ -1,16 +1,13 @@
 # Usage
 
-This guide describes the necessary steps to deploy Wazuh on Kubernetes.
+This guide describes the necessary steps to deploy Wazuh on Kubernetes fronted by a CloudFlare Zero Trust tunnel.
 
 ## Pre-requisites
 
 - Kubernetes cluster already deployed.
-- Kubernetes can run on a wide range of Cloud providers and bare-metal environments, this repository focuses on [AWS](https://aws.amazon.com/). It was tested using [Amazon EKS](https://docs.aws.amazon.com/eks). You should be able to:
-    - Create Persistent Volumes on top of AWS EBS when using a volumeClaimTemplates
-    - Create a record set in AWS Route 53 from a Kubernetes LoadBalancer.
+- Kubernetes can run on a wide range of Cloud providers and bare-metal environments, this repository focuses on [GCP](https://cloud.google.com/). It was tested using [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine/). You should be able to:
+    - Create Persistent Volumes on top of GCE Persistent Disks when using a volumeClaimTemplates
 - Having at least two Kubernetes nodes in order to meet the *podAntiAffinity* policy.
-- For Kubernetes version 1.23 or higher, the assignment of an IAM Role is necessary for the CSI driver to function correctly. Within the AWS documentation you can find the instructions for the assignment: https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
-- The installation of the CSI driver is necessary for new and old deployments, since it is a Kubernetes feature.
 
 
 ## Overview
@@ -88,7 +85,7 @@ Details:
 
 Deploying the Kubernetes cluster is out of the scope of this guide.
 
-This repository focuses on [AWS](https://aws.amazon.com/) but it should be easy to adapt it to another Cloud provider. In case you are using AWS, we recommend [EKS](https://docs.aws.amazon.com/en_us/eks/latest/userguide/getting-started.html).
+This repository focuses on [GCP](https://cloud.google.com/) but it should be easy to adapt it to another Cloud provider. In case you are using GKE, we recommend [GKE](https://cloud.google.com/kubernetes-engine/).
 
 
 ### Step 2: Create domains to access the services
@@ -137,12 +134,12 @@ The required certificates are imported via secretGenerator on the `kustomization
 
 ### Step 3.2: Apply all manifests using kustomize
 
-We are using the overlay feature of kustomize to create two variants: `eks` and `local-env`, in this guide we're using `eks`. (For a deployment on a local environment check the guide on [local-environment.md](local-environment.md))
+We are using the overlay feature of kustomize to create two variants: `gke` and `local-env`, in this guide we're using `gke`. (For a deployment on a local environment check the guide on [local-environment.md](local-environment.md))
 
-You can adjust resources for the cluster on `envs/eks/`, you can tune cpu, memory as well as storage for persistent volumes of each of the cluster objects.
+You can adjust resources for the cluster on `envs/gke/`, you can tune cpu, memory as well as storage for persistent volumes of each of the cluster objects.
 
 
-By using the kustomization file on the `eks` variant we can now deploy the whole cluster with a single command:
+By using the kustomization file on the `gke` variant we can now deploy the whole cluster with a single command:
 
 ```BASH
 $ kubectl apply -k envs/eks/

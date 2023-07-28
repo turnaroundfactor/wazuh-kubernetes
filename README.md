@@ -15,11 +15,9 @@ Deploy a Wazuh cluster with a basic indexer and dashboard stack on Kubernetes.
 
 ## Documentation
 
-## Amazon EKS development
+## Google GKE development
 
-To deploy a cluster on Amazon EKS cluster read the instructions on [instructions.md](instructions.md).
-Note: For Kubernetes version 1.23 or higher, the assignment of an IAM Role is necessary for the CSI driver to function correctly. Within the AWS documentation you can find the instructions for the assignment: https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
-The installation of the CSI driver is mandatory for new and old deployments if you are going to use Kubernetes 1.23 for the first time or you need to upgrade the cluster.
+To deploy a cluster on Google GKE cluster read the instructions on [instructions.md](instructions.md).
 
 ## Local development
 
