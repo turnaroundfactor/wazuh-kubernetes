@@ -45,7 +45,7 @@ jobs:
       uses: google-github-actions/get-gke-credentials@v0
       with:
         cluster_name: ${{ vars.CLUSTER_NAME }}
-        location: us-east4-a
+        location: us-east4
         project_id: ${{ vars.PROJECT_ID }}
 
 
