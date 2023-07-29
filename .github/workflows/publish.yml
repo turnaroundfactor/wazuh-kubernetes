@@ -47,7 +47,7 @@ jobs:
         cluster_name: ${{ vars.CLUSTER_NAME }}
         location: us-east4
         project_id: ${{ vars.PROJECT_ID }}
-    - name: Apply Dashboard Secret
+    - name: Apply K8s Manifests
       run: |
         kubectl delete secret dashboard-cred --ignore-not-found -n wazuh
         kubectl create secret generic dashboard-cred --from-literal=username=${{ secrets.DASHBOARD_USERNAME }} --from-literal=password=${{ secrets.DASHBOARD_PASSWORD }} -n wazuh
