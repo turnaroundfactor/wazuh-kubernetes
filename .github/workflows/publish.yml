@@ -64,8 +64,6 @@ jobs:
         kubectl delete secret wazuh-cluster-key --ignore-not-found -n wazuh
         kubectl create secret generic wazuh-cluster-key --from-literal=key${{ secrets.CLUSTER_KEY }} -n wazuh
 
-        sh wazuh/certs/dashboard_http/generate_certs.sh
+        ls
 
-        sh wazuh/certs/indexer_cluster/generate_certs.sh
-
-        kubectl apply -k envs/gke
+        
