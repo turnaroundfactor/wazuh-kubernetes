@@ -62,7 +62,7 @@ jobs:
         kubectl create secret generic wazuh-authd-pass --from-literal=authd.pass=${{ secrets.AUTH_D_PASSWORD }} -n wazuh
         
         kubectl delete secret wazuh-cluster-key --ignore-not-found -n wazuh
-        kubectl create secret generic wazuh-cluster-key --from-literal=key${{ secrets.CLUSTER_KEY }} -n wazuh
+        kubectl create secret generic wazuh-cluster-key --from-literal=key=${{ secrets.CLUSTER_KEY }} -n wazuh
 
         cd wazuh/certs/dashboard_http
 
