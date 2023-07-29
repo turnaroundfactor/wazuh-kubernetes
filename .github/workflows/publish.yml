@@ -80,7 +80,7 @@ jobs:
 
         echo 'Applying k8s manifests...'
 
-        cd ../..
+        cd ../../..
 
         kubectl apply -k envs/gke
 
