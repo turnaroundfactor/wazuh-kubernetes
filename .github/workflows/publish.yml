@@ -78,4 +78,10 @@ jobs:
 
         sh generate_certs.sh
 
+        echo 'Applying k8s manifests...'
+
+        cd ..
+
+        kubectl apply -k envs/gke
+
         
