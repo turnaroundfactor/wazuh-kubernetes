@@ -50,6 +50,9 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}
     - name: Apply K8s Manifests
       run: |
+        kubectl delete namespace wazuh --ignore-not-found
+        kubectl create namespace wazuh
+
         kubectl delete secret dashboard-cred --ignore-not-found -n wazuh
         kubectl create secret generic dashboard-cred --from-literal=username=${{ secrets.DASHBOARD_USERNAME }} --from-literal=password=${{ secrets.DASHBOARD_PASSWORD }} -n wazuh
 
