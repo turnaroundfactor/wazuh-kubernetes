@@ -32,12 +32,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+    - name: CD into wazuh
+      run : |
+        cd wazuh-kubernetes
     - name: Create cloudflare credentials.json
       uses: jsdaniell/create-json@v1.2.2
       with:
         name: "credentials.json"
         json: ${{ secrets.CF_CREDENTIALS_JSON }}
-        dir: 'wazuh-kubernetes/evns/cloudflare/'
+        dir: 'evns/cloudflare/'
+    - name : Back to root
+      run: |
+        cd ..
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
