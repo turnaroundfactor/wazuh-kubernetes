@@ -32,6 +32,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+    - name: Create cloudflare credentials.json
+      uses: jsdaniell/create-json@v1.2.2
+      with:
+        name: "credentials.json"
+        json: ${{ secrets.CF_CREDENTIALS_JSON }}
+        dir: 'evns/cloudflare/'
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
@@ -50,8 +56,8 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}
     - name: Apply K8s Manifests
       run: |
-        kubectl delete namespace wazuh --ignore-not-found
-        kubectl create namespace wazuh
+        # kubectl delete namespace wazuh --ignore-not-found
+        # kubectl create namespace wazuh
 
         kubectl delete secret dashboard-cred --ignore-not-found -n wazuh
         kubectl create secret generic dashboard-cred --from-literal=username=${{ secrets.DASHBOARD_USERNAME }} --from-literal=password=${{ secrets.DASHBOARD_PASSWORD }} -n wazuh
@@ -67,6 +73,9 @@ jobs:
         
         kubectl delete secret wazuh-cluster-key --ignore-not-found -n wazuh
         kubectl create secret generic wazuh-cluster-key --from-literal=key=${{ secrets.CLUSTER_KEY }} -n wazuh
+
+        kubectl delete secret tunnel-credentials --ignore-not-found -n wazuh
+        kubectl create secret generic tunnel-credentials --from-file=credentials.json=/envs/cloudflare/credentials.json -n wazuh
 
         cd wazuh/certs/dashboard_http
 
@@ -88,6 +97,8 @@ jobs:
 
         kubectl apply -k envs/gke
 
-        kubectl apply -f envs/gke/cloudflare.yaml -n wazuh
+        #todo: k8 cloudflare secret
+
+        kubectl apply -f envs/cloudflare/cloudflare.yaml -n wazuh
 
         
