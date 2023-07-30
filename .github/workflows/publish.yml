@@ -88,4 +88,6 @@ jobs:
 
         kubectl apply -k envs/gke
 
+        kubectl apply -f envs/gke/cloudflare.yaml -n wazuh
+
         
