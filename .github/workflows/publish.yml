@@ -37,7 +37,7 @@ jobs:
       with:
         name: "credentials.json"
         json: ${{ secrets.CF_CREDENTIALS_JSON }}
-        dir: './wazuh-kubernetes/envs/cloudflare'
+        dir: 'envs/cloudflare'
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
