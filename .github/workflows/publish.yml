@@ -32,12 +32,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Update my-file.json description
+    - name: Set Tunnel Secret
       uses: jossef/action-set-json-field@v2.1
       with:
         file: envs/cloudflare/credentials.json
         field: TunnelSecret
         value: ${{ secrets.CF_TUNNEL_SECRET }}
+    - name: Set Tunnel Id
+      uses: jossef/action-set-json-field@v2.1
+      with:
+        file: envs/cloudflare/credentials.json
+        field: TunnelSecret
+        value: ${{ vars.CF_TUNNEl_ID }}
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
@@ -96,8 +102,6 @@ jobs:
         cd ../../..
 
         kubectl apply -k envs/gke
-
-        #todo: k8 cloudflare secret
 
         kubectl apply -f envs/cloudflare/cloudflare.yaml -n wazuh
 
