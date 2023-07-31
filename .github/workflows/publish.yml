@@ -42,7 +42,7 @@ jobs:
       uses: jossef/action-set-json-field@v2.1
       with:
         file: envs/cloudflare/credentials.json
-        field: TunnelSecret
+        field: TunnelId
         value: ${{ vars.CF_TUNNEl_ID }}
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
