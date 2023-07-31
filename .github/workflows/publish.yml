@@ -42,6 +42,7 @@ jobs:
         json: ${{ secrets.CF_CREDENTIALS_JSON }}
     - name : Back to root
       run: |
+        ls
         cd ../..
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
