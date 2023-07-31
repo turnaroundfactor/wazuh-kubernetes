@@ -75,7 +75,7 @@ jobs:
         kubectl create secret generic wazuh-cluster-key --from-literal=key=${{ secrets.CLUSTER_KEY }} -n wazuh
 
         kubectl delete secret tunnel-credentials --ignore-not-found -n wazuh
-        kubectl create secret generic tunnel-credentials --from-file=credentials.json=/envs/cloudflare/credentials.json -n wazuh
+        kubectl create secret generic tunnel-credentials --from-file=credentials.json=envs/cloudflare/credentials.json -n wazuh
 
         cd wazuh/certs/dashboard_http
 
