@@ -63,6 +63,8 @@ jobs:
     - name: Apply K8s Manifests
       run: |
 
+        openssl version
+
         kubectl apply -f wazuh/base/wazuh-ns.yaml
 
         kubectl delete secret dashboard-cred --ignore-not-found -n wazuh
