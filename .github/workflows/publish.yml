@@ -32,12 +32,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Create cloudflare credentials.json
-      uses: jsdaniell/create-json@v1.2.2
+    - name: Update my-file.json description
+      uses: jossef/action-set-json-field@v2.1
       with:
-        name: "credentials.json"
-        json: ${{ secrets.CF_CREDENTIALS_JSON }}
-        dir: 'envs/cloudflare'
+        file: evns/cloudflare/credentials.json
+        field: TunnelSecret
+        value: ${{ secrets.CF_TUNNEL_SECRET }}
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
@@ -56,11 +56,8 @@ jobs:
         project_id: ${{ vars.PROJECT_ID }}
     - name: Apply K8s Manifests
       run: |
-        cd envs/cloudflare
-        ls
 
-        # kubectl delete namespace wazuh --ignore-not-found
-        # kubectl create namespace wazuh
+        kubectl apply -f wazuh/base/wazuh-ns.yaml
 
         kubectl delete secret dashboard-cred --ignore-not-found -n wazuh
         kubectl create secret generic dashboard-cred --from-literal=username=${{ secrets.DASHBOARD_USERNAME }} --from-literal=password=${{ secrets.DASHBOARD_PASSWORD }} -n wazuh
