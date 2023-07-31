@@ -15,7 +15,7 @@ metadata:
   labels:
     app: wazuh-indexer
   annotations:
-    networking.gke.io/load-balancer-type: "Internal"
+    networking.gke.io/load-balancer-type: "External" #to test pw
 spec:
   type: LoadBalancer
   selector:
