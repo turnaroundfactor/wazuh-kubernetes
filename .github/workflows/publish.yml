@@ -35,7 +35,7 @@ jobs:
     - name: Update my-file.json description
       uses: jossef/action-set-json-field@v2.1
       with:
-        file: evns/cloudflare/credentials.json
+        file: envs/cloudflare/credentials.json
         field: TunnelSecret
         value: ${{ secrets.CF_TUNNEL_SECRET }}
     - id: 'auth'
